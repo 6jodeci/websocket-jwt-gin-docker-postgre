@@ -23,19 +23,26 @@ func initRouter() *gin.Engine {
 	router := gin.Default()
 	router.LoadHTMLGlob("../templates/html/*.html")
 	router.Static("/css", "../templates/css/")
-	router.GET("/", func(context *gin.Context) {
+	router.GET("/chat", func(context *gin.Context) {
 		context.HTML(http.StatusOK, "chat_homepage.html", gin.H{"title": "homepage"})
 	})
-	router.GET("/chat/registration", func(context *gin.Context) {
-		context.HTML(http.StatusOK, "registration.html", gin.H{"title": "registration"})
-	})
-	router.GET("/chat/authorization", func(context *gin.Context) {
-		context.HTML(http.StatusOK, "authorization.html", gin.H{"title": "authorization"})
-	})
+	action := router.Group("/action")
+	{
+		action.GET("/registration", func(context *gin.Context) {
+			context.HTML(http.StatusOK, "registration.html", gin.H{"title": "registration"})
+		})
+		action.GET("/authorization", func(context *gin.Context) {
+			context.HTML(http.StatusOK, "authorization.html", gin.H{"title": "authorization"})
+		})
+	}
 	api := router.Group("/api")
 	{
 		api.POST("/token", controllers.GenerateToken)
-		api.POST("/user/register", controllers.RegisterUser)
+		api.POST("/register", controllers.RegisterUser, func(context *gin.Context) {
+			context.JSON(http.StatusOK, gin.H{"username": context.PostForm("username")})
+			context.JSON(http.StatusOK, gin.H{"email": context.PostForm("email")})
+			context.JSON(http.StatusOK, gin.H{"password": context.PostForm("password")})
+		})
 
 		secured := api.Group("/secured").Use(middlewares.Auth())
 		{

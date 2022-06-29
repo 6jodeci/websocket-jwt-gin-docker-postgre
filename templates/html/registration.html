@@ -12,9 +12,11 @@
     <div class="Registraion">
     <form method="post" action="">
 
-    <span class="fontawesome-user"></span><input type="text" required placeholder="Username" autocomplete="off"> 
-    <span class="fontawesome-envelope-alt"></span><input type="text" id="email" required placeholder="Email" autocomplete="off">
-    <span class="fontawesome-lock"></span><input type="password" name="password" id="password" required placeholder="Password" autocomplete="off"> 
-	<input type="submit" value="Continue" title="Continue">
+    <span class="fontawesome-user"></span><input name="username" type="text" required placeholder="Username" autocomplete="off"> 
+    <span class="fontawesome-envelope-alt"></span><input name="email" type="text" id="email" required placeholder="Email" autocomplete="off">
+    <span class="fontawesome-lock"></span><input name="password" type="password"  id="password" required placeholder="Password" autocomplete="off"> 
+	<form action="/api/register" method="post">
+        <input type="submit" value="Continue" name="continue" title="Continue">
+    </form>
 </body>
 </html>

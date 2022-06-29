@@ -5,9 +5,8 @@ POST http://{{host}}/api/user/register
 Content-Type: application/application/json
 
 {
-    "name": "Egor Egorov",
-    "username": "egor.6jodeci",
-    "email": "6jodeci@gmail.com",
+    "username": "6jodeci",
+    "email": "5jodeci@gmail.com",
     "password": "123465789"
 }
 ###
